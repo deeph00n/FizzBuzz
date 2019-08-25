@@ -1,0 +1,22 @@
+﻿@using System.Diagnostics
+@using System.Net.Http
+@using MatBlazor
+@inject HttpClient Http
+
+<div>
+    <MatButton OnClick="@ClickBuzzer">@text</MatButton>
+</div>
+
+
+@functions
+{
+    string text = "Start";
+    int counter = 0;
+
+    public async Task ClickBuzzer()
+    {
+        var response = await Http.GetAsync($"https://localhost:44329/fizzbuzz?value={++counter}");
+        text = await response.Content.ReadAsStringAsync();
+    }
+}
+
